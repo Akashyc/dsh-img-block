@@ -1,0 +1,5 @@
+# Bundle layer for dsh-img-block, applied when the package is listed in a profile's
+# dsh.profile.bundles (the plugin manager or install.sh does that).
+- insert:
+    - id: img-block
+      name: dsh-img-block
