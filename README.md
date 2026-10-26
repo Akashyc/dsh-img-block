@@ -13,28 +13,29 @@ DSH web 插件：把聊天里的图片统一渲染成块级元素（`display:blo
 
 ## 安装
 
-### 方式一：插件管理器导入（推荐）
+从 GitHub 仓库直接装，不用打包、也不用下载 tgz。
 
-设置 → 插件 → 安装 → 选择本目录打出的 `dsh-img-block-0.1.0.tgz`，
-确认后重启 DSH。
+### 方式一：让 agent 装（推荐）
 
-### 方式二：手动装进 profile
+在 DSH 里对 agent 说：
 
-```bash
-tar -xzf dsh-img-block-0.1.0.tgz
-mv package ~/.dsh/profiles/desktop/node_modules/dsh-img-block
-```
+> 安装插件 github:Akashyc/dsh-img-block
 
-然后编辑 `~/.dsh/profiles/desktop/package.json`：
+agent 会调用 `plugin_manager` 的 `install_bundle`，target 填 `github:Akashyc/dsh-img-block`。
+装完刷新页面。
 
-1. `dependencies` 加 `"dsh-img-block": "file:./node_modules/dsh-img-block"`
+### 方式二：装进 profile
+
+在 `~/.dsh/profiles/<profile>/package.json` 里：
+
+1. `dependencies` 加 `"dsh-img-block": "github:Akashyc/dsh-img-block"`
 2. `dsh.profile.bundles` 数组里加 `"dsh-img-block"`
 
-重启 DSH。启动日志里不应再出现 `patch: entry "img-block" not found`。
+然后在 profile 目录跑 `pnpm install`，重启 DSH。启动日志里不应再出现 `patch: entry "img-block" not found`。
 
 ## 卸载
 
-删掉上面的两处注册和目录，重启即可。或者在插件管理器里禁用。
+让 agent 调 `plugin_manager` 的 `remove_bundle`；手动装的，把 `dependencies` 和 `dsh.profile.bundles` 里那两行删掉，再 `pnpm install` 后重启。
 
 ## 调节
 
